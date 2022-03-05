@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>CRM-TD</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+    <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
+  </head>
+
+  <body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+      <div class="container-fluid">
+        <p class="navbar-brand">CRM-TD</p>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarText">
+          <% if user_signed_in? %>
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">            
+              <li class="nav-item">
+                <a class="nav-link active" aria-current="page" href="/">Inicio</a>
+              </li>
+            </ul>  
+            <span class="navbar-text">            
+              <%= link_to "Cerrar Sesion ", destroy_user_session_path, method: :delete, :class => "nav-link" %>                  
+            </span> 
+          <% else %>
+            
+          <% end %>            
+        </div>
+      </div>
+    </nav>
+
+    <div class="container">
+
+    <%= yield %>
+
+    </div>
+
+    <footer class="py-5 bg-black">
+      <div class="container px-5"><p class="m-0 text-center text-white small">Copyright &copy; www.sala45.cl | 2022 | Marcela Arce Reyes</p></div>
+    </footer>
+
+  </body>
+</html>
+

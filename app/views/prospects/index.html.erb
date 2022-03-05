@@ -1,0 +1,72 @@
+<h3 id="notice"><%= notice %></h3>
+
+<div class="text-center">
+  <h1>Prospectos | <%= link_to 'Crear nuevo', new_prospect_path%></h1>
+</div>
+
+<div class="row row-cols-1 row-cols-md-3 g-4 text-center">
+  <div class="col">
+    <div class="card text-white bg-success">
+      <div class="card-body">        
+        <h1 class="card-text"><%= Prospect.where(status_id: 1).count %></h1>
+        <h4 class="card-title">Prospecto</h4>
+      </div>
+    </div>
+  </div>
+  <div class="col">
+    <div class="card text-white bg-success">      
+      <div class="card-body">        
+        <h1 class="card-text"><%= Prospect.where(status_id: 2).count %></h1>
+        <h4 class="card-title">Interesado</h4>
+      </div>
+    </div>
+  </div>
+  <div class="col">
+    <div class="card text-white bg-success">
+      <div class="card-body">        
+        <h1 class="card-text"><%= Prospect.where(status_id: 3).count %></h1>
+        <h4 class="card-title">Cliente</h4>
+      </div>
+    </div>
+  </div>   
+</div>
+
+<br>
+
+<table class= "table text-center">
+  <thead>
+    <tr class="table-dark">
+      <th>ID</th>
+      <th>Nombre</th>
+      <th>Apellido</th>
+      <th>Telefono</th>
+      <th>Email</th>
+      <th>Estado</th>
+      <th>Creado por</th>      
+      <th>Fecha Ingreso</th>
+      <th>Conversaciones</th>
+      <th colspan="3"> Acciones </th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @prospects.each do |prospect| %>
+      <tr>
+        <td><%= prospect.id %></td>
+        <td><%= prospect.nombre %></td>
+        <td><%= prospect.apellido %></td>
+        <td><%= prospect.telefono %></td>
+        <td><%= prospect.email %></td>
+        <td><%= prospect.status.estado %></td>
+        <td><%= prospect.user.email %></td>        
+        <td><%= prospect.created_at.to_date %></td>
+        <td><%= prospect.conversations.count%><i class="far fa-comment-dots"></i></td>
+        
+
+        <td><%= link_to '<i class="far fa-eye"></i>'.html_safe, prospect %></td>
+        <td><%= link_to '<i class="far fa-edit"></i>'.html_safe, edit_prospect_path(prospect) %></td>
+        <td><%= link_to '<i class="far fa-times-circle"></i>'.html_safe, prospect, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

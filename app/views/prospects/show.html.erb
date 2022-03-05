@@ -1,0 +1,89 @@
+<h3 id="notice"><%= notice %></h3>
+
+<div class="card card-custom gutter-b">
+  <div class="card-header">
+    <div class="card-title">
+      <h1>Información del Prospecto</h1>
+    </div>    
+  </div>
+  <div class="card-body">
+    <br>
+    <div>
+      <p>
+        <strong>Nombre:</strong>
+        <%= @prospect.nombre %>
+      </p>
+
+      <p>
+        <strong>Apellido:</strong>
+        <%= @prospect.apellido %>
+      </p>
+
+      <p>
+        <strong>Telefono:</strong>
+        <%= @prospect.telefono %>
+      </p>
+
+      <p>
+        <strong>Email:</strong>
+        <%= @prospect.email %>
+      </p>
+
+      <p>
+        <strong>Estado:</strong>
+        <%= @prospect.status.estado %>
+      </p>
+
+    </div>   
+  </div>    
+    
+  <table class= "table text-center">
+    <thead>
+      <tr class="table-secondary">
+        <th>Fecha Ingreso</th>
+        <th>Conversaciones</th>
+      </tr>
+    </thead>
+
+    <tbody>  
+      <% @conversations.each do |c| %>
+      <tr>
+        <td><%= c.created_at.to_date %></td>
+        <td><%= c.detalle %></td>        
+      </tr>
+      <% end %>
+    </tbody>
+  </table>
+
+  <%= form_with(model: @conversation) do |form| %>
+  <% if @conversation.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@conversation.errors.count, "error") %> prohibited this conversation from being saved:</h2>
+
+      <ul>
+        <% @conversation.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <strong><%= form.label :detalle, "Ingresar una nueva conversacion con el cliente" %></strong>
+    <%= form.text_area :detalle, class: "form-control" %>
+  </div>
+
+  <div class="row">
+    <div class="col-3">      
+      <%= form.hidden_field :prospect_id, :value => @prospect.id %>   
+    </div>
+  </div> 
+
+  <div class="actions">
+    <%= form.submit "Crear nueva conversacion", class: "btn btn-success" %>
+  </div>
+<% end %>
+
+</div>   
+
+<%= link_to 'Regresar', prospects_path, class: "btn btn-danger" %>

@@ -1,0 +1,65 @@
+<%= form_with(model: prospect) do |form| %>
+  <% if prospect.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(prospect.errors.count, "error") %> prohibited this prospect from being saved:</h2>
+
+      <ul>
+        <% prospect.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="row">
+    <%= form.label :nombre %>
+      <div class="col-3">
+        <%= form.text_field :nombre, class: "form-control" %>
+      </div>
+  </div>
+
+
+  <div class="row">
+    <%= form.label :apellido %>
+      <div class="col-3">
+        <%= form.text_field :apellido, class: "form-control" %>
+      </div>
+  </div>
+
+  <div class="row">
+    <%= form.label :telefono %>
+      <div class="col-3">
+        <%= form.text_field :telefono, class: "form-control" %>
+      </div>
+  </div>
+
+  <div class="row">
+    <%= form.label :email %>
+      <div class="col-3">
+        <%= form.text_field :email, class: "form-control" %>
+      </div>
+  </div>
+
+  <div class="row">
+    <%= form.label :status_id, "Estado" %>
+      <div class="col-3">
+        <%= form.collection_select :status_id, Status.all, :id, :estado, include_blank: "Elige un Estado", class: "form-control" %>
+      </div>
+  </div>
+
+  <div class="row">
+    <div class="col-3">
+      <% if current_user %>
+        <%= form.hidden_field :user_id, value: current_user.id %>
+      <% end %>
+    </div>
+  </div>
+
+  <br>
+
+  <div class="row">
+    <div class="actions">
+      <%= form.submit "Crear Prospecto", :class => "btn btn-success" %>
+    </div>
+  </div>
+<% end %>
